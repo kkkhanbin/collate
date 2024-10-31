@@ -13,7 +13,7 @@ class Api(ABC):
     """
 
     def get(self, params: dict = None, headers: dict = None) \
-            -> requests.Response or None:
+            -> requests.Response:
         """
         Получение результата GET-запроса на URL API-класса
 
