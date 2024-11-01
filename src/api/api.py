@@ -41,20 +41,3 @@ class Api(ABC):
         return '?'.join([url, urllib.parse.urlencode(params)])
 
 
-class UseApikey(Api):
-    """
-    Класс для тех, кто использует API-ключ при запросах и наследуется от
-    класса src.data.api.Api
-    """
-
-    def __init__(self, apikey: str, *args, **kwargs):
-        self.apikey = apikey
-
-        super().__init__(*args, **kwargs)
-
-    def get(self, params: dict = None, headers: dict = None) \
-            -> requests.Response:
-        params = default(params, {})
-        params['apikey'] = self.apikey
-
-        return super().get(params, headers)

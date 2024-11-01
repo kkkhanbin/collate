@@ -8,20 +8,15 @@ load_dotenv('../.env')
 from src.parsers import ExcelParser
 from src.data import connection
 
+# Parsing xlsx file
 FILEPATH = "input.xlsx"
 SHEET_NAME = "Invoice"
 
 parser = ExcelParser(FILEPATH)
-dataframe = parser.parse(sheet_name=SHEET_NAME)
+df = parser.parse(sheet_name=SHEET_NAME)
 
-for row in dataframe.values:
-    print(row)
-
-print(", ".join(dataframe.columns))
-
+# Sending data to the DB
 cc = connection.cursor()
-
-
-# cc.executemany('''
-# INSERT INTO Invoices_test ()
-# ''')
+columns = ", ".join(df.columns)
+cc.executemany(f"INSERT INTO Invoices_test({columns}) VALUES(?, ?, ?, ?)", [value for value in df.values])
+cc.close()
