@@ -1,0 +1,26 @@
+{% extends "handlers/handler.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/handlers/not_found/not_found.css') }}">
+
+{% endblock %}
+
+{% block error %}
+
+{% if error.description != 'The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.' %}
+    {% set description = error.description %}
+{% else %}
+    {% set description = 'Страница не найдена' %}
+{% endif %}
+
+<h3>
+    {{ description }}
+</h3>
+<p>
+    Страница устарела, была удалена или не существовала вовсе. Код 404
+</p>
+
+<a href="/" class="btn btn-outline-secondary">Вернуться на главную</a>
+
+{% endblock %}

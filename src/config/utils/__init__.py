@@ -1,4 +1,4 @@
-def default(value, default_value=None):
+def default(value, default_value):
     """
     Получение дефолтного значения если текущее равно None
 

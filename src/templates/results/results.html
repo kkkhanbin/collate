@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/results/results.css') }}">
+
+{% endblock %}
+
+{% block content %}
+<!-- 
+<div>
+    <h1>Загруженные данные ЭСФ</h1>
+
+    <table class="table">
+        <tr>
+            {% for header in inv_cols %}
+                <th scope="col">
+                    {{header}}
+                </th>
+            {% endfor %}
+        </tr>
+
+        {% for invoice in invoices %}
+
+        <tr>
+            {% for col in invoice %}
+                <th scope="row">
+                    {{col}}
+                </th>
+            {% endfor %}
+        </tr>
+
+        {% endfor %}
+    </table>
+</div>
+
+<div>
+    <h1>Загруженные данные Заказов на Покупку</h1>
+
+    <table class="table">
+        <tr>
+            {% for header in po_cols %}
+                <th scope="col">
+                    {{header}}
+                </th>
+            {% endfor %}
+        </tr>
+
+        {% for po in purchase_orders %}
+
+        <tr>
+            {% for col in po %}
+                <th scope="row">
+                    {{col}}
+                </th>
+            {% endfor %}
+        </tr>
+
+        {% endfor %}
+    </table>
+</div> -->
+<div>
+    {% if status == 1 %}
+        <div class="alert alert-success" role="alert">
+            <p style="text-align: left;">
+                Сверка завершена успешно. К каждой строке из документа "ЭСФ" были сопоставлены строки из документа "Заказ на Покупку". Подробнее:
+            </p>
+        </div>
+    {% elif status == 0 %}
+        <div class="alert alert-primary" role="alert">
+            <p style="text-align: left;">
+                Сверка была частично завершена. К некоторой части строк из документа "ЭСФ" не удалось сопоставить строки из документа "Заказ на Покупку" или возникла другая ошибка. Подробнее: 
+            </p>
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <p style="text-align: left;">
+                Сверка завершена неуспешно. Ни к одной строке из документа "ЭСФ" не удалось сопоставить строки из документа "Заказ на Покупку". Подробнее: 
+            </p>
+        </div>
+
+    {% endif %}
+</div>
+
+
+<div class="container">
+    {% if data[0][0]|length > 0 %}
+    <div class="container">
+        <h3 style="text-align: center;">
+            Сопоставленные строки
+        </h3>
+        
+        <table class="table table-striped    table-hover">
+            <thead>
+                <tr>
+                    {% for column in data[0][1] %}
+                <th scope="col">
+                    <p style="font-size: x-small;">{{ column }}</p>
+                </th> 
+                {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in data[0][0] %}
+                    <tr scope="row">
+                        {% for field in row %}
+                            <th scope="col"><p style="font-size: medium;">{{ field }}</p></th>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    {% if data[1][0]|length > 0 %}
+
+        <div class="container">
+            <h3 style="text-align: center;">
+                Не сопоставленные строки из документов "ЭСФ"
+            </h3>
+            
+            <table class="table table-striped    table-hover">
+                <thead>
+                    <tr>
+                        {% for column in data[1][1] %}
+                    <th scope="col">
+                        <p style="font-size: medium;">{{ column }}</p>
+                    </th> 
+                    {% endfor %}
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in data[1][0] %}
+                        <tr scope="row">
+                            {% for field in row %}
+                                <th scope="col"><p style="font-size: medium;">{{ field }}</p></th>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+        
+    {% if data[2][0]|length > 0 %}
+    <div class="container">
+        <h3 style="text-align: center;">
+            Не сопоставленные строки из документов "Заказ на Покупку"
+        </h3>
+        
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    {% for column in data[2][1] %}
+                <th scope="col">
+                    <p style="font-size: medium;">{{ column }}</p>
+                </th> 
+                {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in data[2][0] %}
+                    <tr scope="row">
+                        {% for field in row %}
+                            <th scope="col"><p style="font-size: medium;">{{ field }}</p></th>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+
+{% if is_ai_needed %}
+    <div class="container">
+        <div class="row mb-3">
+                <p style="font-size: small; text-align: left;">Комментарий от ИИ по поводу наименований. {{ ai_desc_status }}</p>
+        </div>
+    </div>
+{% endif %}
+
+<div class="row">
+    <a target="_blank" class="btn col-sm btn-outline-light bg-color-collate" href="/results/download?id={{ pair_id }}">
+        Скачать отчет
+    </a>
+</div>
+
+<div class="row">
+    <a class="btn btn-outline-dark col-sm mt-md-2" href="/">Вернуться в Главное Меню</a>
+</div>  
+
+{% endblock %}

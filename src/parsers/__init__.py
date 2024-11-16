@@ -1,3 +1,1 @@
-from src.parsers.excel.excel import ExcelParser
-
-__all__ = ("ExcelParser")
+from .excel.excel import ExcelParser

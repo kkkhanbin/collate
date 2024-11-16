@@ -4,16 +4,16 @@ import logging
 
 import requests
 
-from src.config.utils import default
+from config.utils import default
 
 
 class Api(ABC):
-    """
+    """ 
     Класс для взаимодействия с другими API
     """
 
     def get(self, params: dict = None, headers: dict = None) \
-            -> requests.Response:
+            -> requests.Response | None:
         """
         Получение результата GET-запроса на URL API-класса
 
@@ -39,5 +39,3 @@ class Api(ABC):
         url = cls.URL if url is None else url
 
         return '?'.join([url, urllib.parse.urlencode(params)])
-
-

@@ -1,0 +1,61 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    padding-bottom: 20px;
+
+}
+
+.logo-text {
+    font-weight: 1000;
+    font-size: xx-large;
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.blue-collate {
+    color: #0C91DE;
+}
+
+.bg-color-collate {
+    background-color: #0C91DE;
+}
+
+.content {
+    margin-top: 1.5%;
+}
+
+p {
+    font-size: 140%;
+}
+
+.search-line > input, button {
+    display: inline-block;
+    white-space: nowrap
+}
+
+.margin-vertical {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+}
+
+.item-outer {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+}
+
+.item-inner {
+    margin: 1%;
+}
+
+.item {
+    margin: 0.5%;
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+/* @font-face { font-family: Delicious; font-weight: bold; src: url('Delicious-Bold.otf');} */

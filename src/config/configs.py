@@ -2,12 +2,16 @@ import os
 
 
 class BaseConfig:
-    SECRET_KEY = os.getenv('SECRET_KEY')
+    SECRET_KEY = "ultra secret key 777"
     DEBUG = False
     JSON_AS_ASCII = False
     TRAP_HTTP_EXCEPTIONS = True
-    MAX_CONTENT_SIZE = 128 * 1024 * 1024  # 128 мегабайт
-    ALLOWED_EXTENSIONS = ()
+    UPLOAD_FOLDER = os.path.join('static', 'upload')
+    MAX_CONTENT_SIZE = 16 * 1024 * 1024  # 16 мегабайт
+    MAX_PLACE_MEDIA_SIZE = 16 * 1024 * 1024  # 16 мегабайт
+    ALLOWED_EXTENSIONS = (
+        'xlsx'
+    )
     FORBIDDEN_EXTENSIONS = (
         'exe'
     )
